@@ -569,16 +569,6 @@ async function performBackupConditional() {
     clearTimeout(backupTimeout); // 取消任何待处理的防抖备份
     backupTimeout = null;
 
-    try {
-        logDebug('尝试调用 saveChatConditional() 以刷新元数据...');
-        console.log('[聊天自动备份] Before saveChatConditional', getContext().chatMetadata);
-        await saveChatConditional();
-        await new Promise(resolve => setTimeout(resolve, 100)); // 短暂延迟
-        logDebug('saveChatConditional() 调用完成，继续获取上下文');
-        console.log('[聊天自动备份] After saveChatConditional', getContext().chatMetadata);
-    } catch (e) {
-        console.warn('[聊天自动备份] 调用 saveChatConditional 时发生错误 (可能无害):', e);
-    }
 
     const context = getContext();
     const chatKey = getCurrentChatKey();
